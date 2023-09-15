@@ -1,27 +1,29 @@
 <div id="<%= dom_id project %>">
   <p>
-    <strong>Name:</strong>
+    <strong>Название проекта:</strong>
     <%= project.name %>
   </p>
 
   <p>
-    <strong>Description:</strong>
+    <strong>Описание:</strong>
     <%= project.description %>
   </p>
 
   <p>
-    <strong>Deadline:</strong>
+    <strong>Дедлайн:</strong>
     <%= project.deadline %>
   </p>
 
+<% unless project.end_date.nil? %>
   <p>
-    <strong>End date:</strong>
+    <strong>Дата завершения:</strong>
     <%= project.end_date %>
   </p>
+<% end %>
 
   <p>
-    <strong>Active:</strong>
-    <%= project.active %>
+    <strong>Статус:</strong>
+    <%= project.active? ? 'Активен' : 'Завершён' %>
   </p>
 
 </div>

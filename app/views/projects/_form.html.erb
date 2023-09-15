@@ -1,7 +1,7 @@
 <%= form_with(model: project) do |form| %>
   <% if project.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <h2>При сохранении проекта возникли ошибки:</h2>
 
       <ul>
         <% project.errors.each do |error| %>
@@ -12,17 +12,17 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label 'Название проекта', style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <%= form.label 'Описание проекта', style: "display: block" %>
     <%= form.text_area :description %>
   </div>
 
   <div>
-    <%= form.label :deadline, style: "display: block" %>
+    <%= form.label 'Дедлайн', style: "display: block" %>
     <%= form.date_field :deadline %>
   </div>
 
@@ -37,6 +37,6 @@
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit 'Создать проект' %>
   </div>
 <% end %>

@@ -1,6 +1,43 @@
-<h1>Editing project</h1>
+<h1>Изменение проекта</h1>
 
-<%= render "form", project: @project %>
+<%# <%= render "form", project: @project %>
+<%= form_with model: @project do |form|%>
+    <% if @project.errors.any? %>
+    <div style="color: red">
+      <h2>При сохранении проекта возникли ошибки:</h2>
+
+      <ul>
+        <% @project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label 'Название проекта', style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label 'Описание проекта', style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label 'Дедлайн', style: "display: block" %>
+    <%= form.date_field :deadline %>
+  </div>
+
+  <div>
+    <%= form.label 'Завершить проект?', style: "display: block" %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+    <%= form.submit 'Сохранить изменения' %>
+  </div>
+<% end %>
 
 <br>
 
