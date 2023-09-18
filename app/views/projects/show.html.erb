@@ -19,21 +19,23 @@
     </div>
   <% end %>
 <%= form_with model: @task do |f| %>
-  <div>
-    <%= f.label :name, 'Задача' %>
-    <%= f.text_field :name %>
+  <div class="container">
+    <div>
+      <%= f.label :name, 'Задача', class: 'form-label', for: 'task-name' %>
+      <%= f.text_field :name, class: 'form-control', id: 'task-name' %>
+    </div>
+    <div>
+      <%= f.label :priority, 'Приоритет', class: 'form-label', for: 'task-priority' %>
+      <%= f.number_field :priority, class: 'form-control', id: 'task-priority' %>
+    </div>
+    <div>
+      <%= f.label :due_date, 'Дедлайн', class: 'form-label', for: 'task-deadline' %>
+      <%= f.date_field :due_date, class: 'form-control', id: 'task-deadline' %>
+    </div>
+    <%= f.hidden_field :status, value: false %>
+    <%= f.hidden_field :project_id, value: @project.id %>
+    <div><%= f.submit 'Добавить задачу'%></div>
   </div>
-  <div>
-    <%= f.label :priority, 'Приоритет' %>
-    <%= f.number_field :priority %>
-  </div>
-  <div>
-    <%= f.label :due_date, 'Дедлайн' %>
-    <%= f.date_field :due_date %>
-  </div>
-  <%= f.hidden_field :status, value: false %>
-  <%= f.hidden_field :project_id, value: @project.id %>
-  <div><%= f.submit %></div>
 <% end %>
 <p>Задача приоритет статус дедлайн</p>
 <ul>
