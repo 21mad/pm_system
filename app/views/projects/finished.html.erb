@@ -4,16 +4,14 @@
   <div class="d-inline-flex flex-column flex-shrink-0 p-3 bg-white" style="width: 15%; height: 100vh; float: left; position: fixed; border-right: solid 1px; border-color: #dcdddd">
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <div class="nav-link" style="color: black; font-weight: bold">Активные проекты</div>
+      <div class="nav-link" style="color: black; font-weight: bold">Завершенные проекты</div>
       <hr style="margin-top: 0">
       <% @projects.each do |project|%>
-        <% if project.active? %>
-          <li>
-            <div class="nav-link">
-              <a href="<%= project_path(project) %>" style="color: black; text-decoration: none"><%= project.name %></a>
-            </div>
-          </li>
-        <% end %>
+        <li>
+          <div class="nav-link">
+            <a href="<%= project_path(project) %>" style="color: black; text-decoration: none"><%= project.name %></a>
+          </div>
+        </li>
       <% end %>
     </ul>
     <hr>
@@ -39,10 +37,10 @@
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row">
         <li>
-          <a class="nav-link active" href="<%= projects_path %>">Активные</a>
+          <a class="nav-link" href="<%= projects_path %>">Активные</a>
         </li>
         <li>
-          <a class="nav-link" href="<%= finished_projects_path %>">Завершенные</a>
+          <a class="nav-link active" href="<%= finished_projects_path %>">Завершенные</a>
         </li>
         <li>
           <a class="nav-link" href="<%= analytics_projects_path %>">Аналитика</a>
@@ -192,7 +190,7 @@
 <!--Main layout-->
 <main style="margin-top: 20px">
   <div class="container" style="padding-top: 60px">
-    <h1>Добро пожаловать в Project Minder!</h1>
+    <h1>Завершенные проекты</h1>
     <p>Для начала работы, создайте новый проект или выберите существующий.</p>
     <p style="color: green"><%= notice %></p>
     <h1>Проекты</h1>

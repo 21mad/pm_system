@@ -4,10 +4,10 @@
   <div class="d-inline-flex flex-column flex-shrink-0 p-3 bg-white" style="width: 15%; height: 100vh; float: left; position: fixed; border-right: solid 1px; border-color: #dcdddd">
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <div class="nav-link" style="color: black; font-weight: bold">Активные проекты</div>
+      <div class="nav-link" style="color: black; font-weight: bold"><%= @project.active ? "Активные проекты" : "Завершенные проекты"%></div>
       <hr style="margin-top: 0">
       <% @projects.each do |project|%>
-        <% if project.active? %>
+        <% if project.active == @project.active %>
           <li>
             <div class="nav-link <%= project.id == @project.id ? 'active' : '' %>">
               <a href="<%= project_path(project) %>" style="color: black; text-decoration: none"><%= project.name %></a>
@@ -39,13 +39,13 @@
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row">
         <li>
-          <a class="nav-link active" href="<%= projects_path %>">Активные</a>
+          <a class="nav-link <%= @project.active ? "active" : "" %>" href="<%= projects_path %>">Активные</a>
         </li>
         <li>
-          <a class="nav-link" href="#">Завершенные</a>
+          <a class="nav-link <%= !@project.active ? "active" : "" %>" href="<%= finished_projects_path %>">Завершенные</a>
         </li>
         <li>
-          <a class="nav-link" href="#">Аналитика</a>
+          <a class="nav-link" href="<%= analytics_projects_path %>">Аналитика</a>
         </li>
         <li>
           <a class="nav-link" href="#">Пользователи</a>
@@ -199,18 +199,18 @@
 
     <h2>Добавить задачу (если ты PM)</h2>
     <%# params.require(:task).permit(:name, :description, :priority, :status, :due_date) %>
-    <%= flash[:error] %>
-      <% if @task.errors.any? %>
-        <div style="color: red">
-          <h2>При сохранении проекта возникли ошибки:</h2>
+    <div style="color: red"><%= flash[:error] %></div>
+    <% if @task.errors.any? %>
+      <div style="color: red">
+        <h2>При сохранении проекта возникли ошибки:</h2>
 
-          <ul>
-            <% project.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+        <ul>
+          <% project.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <%= form_with model: @task do |f| %>
       <div class="container">
         <div>
@@ -242,6 +242,24 @@
       <%= link_to "Назад к проектам", projects_path %>
 
       <%= button_to "Удалить проект", @project, method: :delete %>
+    </div>
+    <div class="calendar-section">
+      <h1>Календарь</h1>
+      <%= turbo_frame_tag 'calendar' do %>
+        <%= month_calendar do |date| %>
+          <div class="day"><%= date.day %></div>
+          <div class="tasks-for-day">
+            <ul>
+              <% @project.tasks.where(due_date: date).each do |this_day_task|%>
+                <li style="<%= this_day_task.status == true ? "text-decoration: line-through" : "" %>"><%= this_day_task.name %></li>
+              <% end %>
+            </ul>
+          </div>
+          <% if date == @project.deadline %>
+            <div class="deadline" style="color: red">Дедлайн!</div>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </main>

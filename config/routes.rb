@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root 'projects#index'
   resources :projects do
+    collection do
+      get 'finished'
+      get 'analytics'
+    end
     # resources :tasks, only: [:create, :update, :destroy]
   end
   resources :tasks, only: [:create, :update, :destroy]

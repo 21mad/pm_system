@@ -6,6 +6,16 @@ class ProjectsController < ApplicationController
     @projects = Project.all
   end
 
+  # GET /projects/finished
+  def finished
+    @projects = Project.where(active: false)
+  end
+
+  # GET /projects/finished
+  def analytics
+    @projects = Project.all
+  end
+
   # GET /projects/1 or /projects/1.json
   def show
     @task = Task.new
