@@ -17,7 +17,7 @@
       <% end %>
     </ul>
     <hr>
-    <p><%= button_to "Новый проект", new_project_path, class: "btn btn-success", style: "width: 100%", method: :get %></p>
+    <p><%= link_to "Новый проект", new_project_path, class: "btn btn-success", style: "width: 100%", data: { turbo_frame: "remote_modal" }%></p>
   </div>
   <!-- Sidebar -->
 
@@ -194,42 +194,14 @@
   <div class="container" style="padding-top: 40px">
     <p style="color: green"><%= notice %></p>
     <%= render @project %>
+    <div>
+      <%= link_to "Редактировать проект", edit_project_path(@project), data: { turbo_frame: "remote_modal" } %>
+    </div>
 
-    <h1>Задачи</h1>
-
-    <h2>Добавить задачу (если ты PM)</h2>
-    <%# params.require(:task).permit(:name, :description, :priority, :status, :due_date) %>
+    <div>
+      <h1 id="tasks">Задачи <%=link_to '+', new_project_task_path(@project), class: 'btn btn-outline-dark', data: { turbo_frame: "remote_modal" } %></h1>
+    </div>
     <div style="color: red"><%= flash[:error] %></div>
-    <% if @task.errors.any? %>
-      <div style="color: red">
-        <h2>При сохранении проекта возникли ошибки:</h2>
-
-        <ul>
-          <% project.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <%= form_with model: @task do |f| %>
-      <div class="container">
-        <div>
-          <%= f.label :name, 'Задача', class: 'form-label', for: 'task-name' %>
-          <%= f.text_field :name, class: 'form-control', id: 'task-name' %>
-        </div>
-        <div>
-          <%= f.label :priority, 'Приоритет', class: 'form-label', for: 'task-priority' %>
-          <%= f.number_field :priority, class: 'form-control', id: 'task-priority' %>
-        </div>
-        <div>
-          <%= f.label :due_date, 'Дедлайн', class: 'form-label', for: 'task-deadline' %>
-          <%= f.date_field :due_date, class: 'form-control', id: 'task-deadline' %>
-        </div>
-        <%= f.hidden_field :status, value: false %>
-        <%= f.hidden_field :project_id, value: @project.id %>
-        <div><%= f.submit 'Добавить задачу'%></div>
-      </div>
-    <% end %>
     <p>Задача приоритет статус дедлайн</p>
     <ul>
       <% @project.tasks.each do |task| %>
@@ -237,17 +209,11 @@
       <% end %>
     </ul>
 
-    <div>
-      <%= link_to "Редактировать данный проект", edit_project_path(@project) %> |
-      <%= link_to "Назад к проектам", projects_path %>
-
-      <%= button_to "Удалить проект", @project, method: :delete %>
-    </div>
     <div class="calendar-section">
       <h1>Календарь</h1>
       <%= turbo_frame_tag 'calendar' do %>
         <%= month_calendar do |date| %>
-          <div class="day"><%= date.day %></div>
+          <div class="day-number"><%= date.day %></div>
           <div class="tasks-for-day">
             <ul>
               <% @project.tasks.where(due_date: date).each do |this_day_task|%>

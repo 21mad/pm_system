@@ -15,7 +15,7 @@
       <% end %>
     </ul>
     <hr>
-    <p><%= button_to "Новый проект", new_project_path, class: "btn btn-success", style: "width: 100%", method: :get %></p>
+    <p><%= link_to "Новый проект", new_project_path, class: "btn btn-success", style: "width: 100%", data: { turbo_frame: "remote_modal" }%></p>
   </div>
   <!-- Sidebar -->
 

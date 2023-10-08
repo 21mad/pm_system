@@ -1,5 +1,5 @@
-<%= render "remote_modal", title: "Изменение проекта" do %>
-  <%= form_with model: @project do |form|%>
+<%= turbo_stream.update "remote_modal_body" do %>
+    <%= form_with model: @project do |form|%>
       <% if @project.errors.any? %>
       <div style="color: red">
         <h2>При сохранении проекта возникли ошибки:</h2>

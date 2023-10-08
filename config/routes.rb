@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get 'finished'
       get 'analytics'
     end
-    # resources :tasks, only: [:create, :update, :destroy]
+    resources :tasks, only: :new
   end
   resources :tasks, only: [:create, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

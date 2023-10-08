@@ -42,6 +42,7 @@ class ProjectsController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :form_update, status: :unprocessable_entity }
       end
     end
   end
@@ -57,6 +58,7 @@ class ProjectsController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.turbo_stream { render :form_edit_update, status: :unprocessable_entity }
       end
     end
   end

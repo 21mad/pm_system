@@ -2,14 +2,16 @@ class TasksController < ApplicationController
   # before_action :set_project
   before_action :set_task, only: [:update, :destroy]
 
-  # def new
-  #   @task = @project.tasks.build
-  # end
+  def new
+    @project = Project.find(params[:project_id])
+    @task = @project.tasks.build
+  end
 
   def create
     @task = Task.new(task_params)
     if @task.save
       redirect_to project_path(@task.project_id), notice: 'Задача успешно создана.'
+      # redirect_to "/projects/#{@task.project_id}#tasks", notice: 'Задача успешно создана.'
     else
       flash[:error] = 'Заполните все поля для создания задачи!'
       redirect_to project_path(@task.project_id)
@@ -24,10 +26,10 @@ class TasksController < ApplicationController
     # updated_params[:status] = !task_params[:status]
     updated_status = !@task.status
     if @task.update(status: updated_status)
-      redirect_to "/projects/#{@task.project_id}#row#{@task.id}", notice: 'Задача успешно обновлена.'
+      redirect_to "/projects/#{@task.project_id}#tasks", notice: 'Задача успешно обновлена.'
     else
       flash[:error] = 'Ошибка!'
-      redirect_to project_path(@task.project_id)
+      redirect_to new_project_task_path(@task.project_id)
     end
   end
 

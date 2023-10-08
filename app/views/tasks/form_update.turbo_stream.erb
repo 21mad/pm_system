@@ -1,0 +1,25 @@
+<%= turbo_stream.update "remote_modal_body" do %>
+  <div class="task-form">
+    <div style="color: red"><%= flash[:error] %></div>
+    <%= form_with model: @task do |f| %>
+      <div class="container">
+        <div>
+          <%= f.label :name, 'Задача', class: 'form-label', for: 'task-name' %>
+          <%= f.text_field :name, class: 'form-control', id: 'task-name' %>
+        </div>
+        <div style="padding-top: 8px">
+          <%= f.label :priority, 'Приоритет', class: 'form-label', for: 'task-priority' %>
+          <%= f.select :priority, [1, 2, 3], id: 'task-priority' %>
+        </div>
+        <div>
+          <%= f.label :due_date, 'Дедлайн', class: 'form-label', for: 'task-deadline' %>
+          <%= f.date_field :due_date, class: 'form-control', id: 'task-deadline' %>
+        </div>
+        <%= f.hidden_field :status, value: false %>
+        <%= f.hidden_field :project_id, value: @project.id %>
+        <br>
+        <div><%= f.submit 'Добавить задачу', class: 'btn btn-primary'%></div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
