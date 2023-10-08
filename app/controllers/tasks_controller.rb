@@ -10,7 +10,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to project_path(@task.project_id), notice: 'Задача успешно создана.'
+      redirect_to project_path(@task.project_id)#, notice: 'Задача успешно создана.'
       # redirect_to "/projects/#{@task.project_id}#tasks", notice: 'Задача успешно создана.'
     else
       flash[:error] = 'Заполните все поля для создания задачи!'
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
     # updated_params[:status] = !task_params[:status]
     updated_status = !@task.status
     if @task.update(status: updated_status)
-      redirect_to "/projects/#{@task.project_id}#tasks", notice: 'Задача успешно обновлена.'
+      redirect_to "/projects/#{@task.project_id}"#, notice: 'Задача успешно обновлена.'
     else
       flash[:error] = 'Ошибка!'
       redirect_to new_project_task_path(@task.project_id)
@@ -35,7 +35,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to project_path(@task.project_id), notice: 'Задача успешно удалена.'
+    redirect_to project_path(@task.project_id)#, notice: 'Задача успешно удалена.'
   end
 
   private

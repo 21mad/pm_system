@@ -37,3 +37,44 @@ body {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
+
+.dot {
+  margin-left: 10px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: black;
+}
+.dot-yellow{
+  margin-left: 10px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: yellow;
+}
+.dot-orange{
+  margin-left: 10px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: orange;
+}
+.dot-red{
+  margin-left: 10px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: red;
+}
+.dot-grey{
+  margin-left: 10px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: grey;
+}

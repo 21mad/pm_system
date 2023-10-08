@@ -199,15 +199,77 @@
     </div>
 
     <div>
-      <h1 id="tasks">Задачи <%=link_to '+', new_project_task_path(@project), class: 'btn btn-outline-dark', data: { turbo_frame: "remote_modal" } %></h1>
+      <h1 id="tasks">Задачи <%=link_to 'Добавить +', new_project_task_path(@project), class: 'btn btn-outline-dark', data: { turbo_frame: "remote_modal" } %></h1>
     </div>
     <div style="color: red"><%= flash[:error] %></div>
-    <p>Задача приоритет статус дедлайн</p>
-    <ul>
-      <% @project.tasks.each do |task| %>
-        <li id=row<%= task.id %>><%= button_to task.status ? 'Вернуть' : 'Сделать', task_path(task.id), method: :patch %> <%= task.id %> <%= task.name%> <%= task.priority %> <%= task.status %> <%= task.due_date %><%= button_to 'Удалить', task_path(task.id), method: :delete %></li>
+    <% if @project.tasks.any? %>
+      <%= turbo_frame_tag 'tasks-table' do %>
+        <div class="tasks-table" style="border: 1px solid">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Выполнить</th>
+                <th scope="col">Задача</th>
+                <th scope="col">Приоритет</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Дедлайн</th>
+                <th scope="col">Удалить</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @project.tasks.where(status: false).order(deadline: :asc).each_with_index do |task, num| %>
+                <% case task.priority %>
+                  <% when 1 %>
+                    <% bg_color = '-grey' %>
+                  <% when 2 %>
+                    <% bg_color = '-orange' %>
+                  <% when 3 %>
+                    <% bg_color = '-red' %>
+                  <% else %>
+                    <% bg_color = '-black' %>
+                <% end %>
+                <tr id="row<%= task.id %>">
+                  <th scope="row"><%= num + 1%></th>
+                  <td><%= button_to task.status ? 'Вернуть' : 'Сделать', task_path(task.id), method: :patch, class: "btn btn-outline-dark", style: "line-width: 15px; line-height: 15px" %></td>
+                  <td><%= task.name %></td>
+                  <td><%= task.priority %><span class="dot<%= bg_color %>"></span></td>
+                  <td><%= image_tag 'logos/in-progress.png', style: "width: 20px; height: 20px" %></td>
+                  <td><%= l task.due_date, format: :long %></td>
+                  <td><%= button_to 'Удалить', task_path(task.id), method: :delete, class: "btn btn-outline-dark", style: "line-width: 15px; line-height: 15px" %></td>
+                </tr>
+              <% end %>
+              <% if @project.tasks.where(status: true).any? %>
+                <tr><th colspan="8" style="padding-left: 40px">Выполненные задачи</th></tr>
+              <% end %>
+              <% @project.tasks.where(status: true).order(deadline: :asc).each_with_index do |task, num| %>
+                <% case task.priority %>
+                  <% when 1 %>
+                    <% bg_color = '-grey' %>
+                  <% when 2 %>
+                    <% bg_color = '-orange' %>
+                  <% when 3 %>
+                    <% bg_color = '-red' %>
+                  <% else %>
+                    <% bg_color = '-black' %>
+                <% end %>
+                <tr id="row<%= task.id %>">
+                  <th scope="row"><%= num + 1 %></th>
+                  <td><%= button_to task.status ? 'Вернуть' : 'Сделать', task_path(task.id), method: :patch, class: "btn btn-outline-dark", style: "line-width: 15px; line-height: 15px" %></td>
+                  <td style="text-decoration: line-through"><%= task.name %></td>
+                  <td><%= task.priority %><span class="dot<%= bg_color %>"></span></td>
+                  <td><%= image_tag 'logos/done.png', style: "width: 20px; height: 20px" %></td>
+                  <td><%= l task.due_date, format: :long %></td>
+                  <td><%= button_to 'Удалить', task_path(task.id), method: :delete, class: "btn btn-outline-dark", style: "line-width: 15px; line-height: 15px" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       <% end %>
-    </ul>
+    <% else %>
+      Задач пока нет
+    <% end %>
 
     <div class="calendar-section">
       <h1>Календарь</h1>
