@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  # resources :users, only: [:index]
   root 'projects#index'
   resources :projects do
     collection do
