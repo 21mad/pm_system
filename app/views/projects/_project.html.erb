@@ -9,7 +9,7 @@
   </p> 
   <p>
     <strong>Дедлайн:</strong>
-    <%= project.deadline %>
+    <%= l project.deadline, format: :long %>
   </p>
 <% unless project.end_date.nil? %>
   <p>

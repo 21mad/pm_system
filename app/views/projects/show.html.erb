@@ -277,14 +277,22 @@
         <%= month_calendar do |date| %>
           <div class="day-number"><%= date.day %></div>
           <div class="tasks-for-day">
-            <ul>
               <% @project.tasks.where(due_date: date).each do |this_day_task|%>
-                <li style="<%= this_day_task.status == true ? "text-decoration: line-through" : "" %>"><%= this_day_task.name %></li>
+                <% case this_day_task.priority %>
+                  <% when 1 %>
+                    <% bg_color = '-grey' %>
+                  <% when 2 %>
+                    <% bg_color = '-orange' %>
+                  <% when 3 %>
+                    <% bg_color = '-red' %>
+                  <% else %>
+                    <% bg_color = '-black' %>
+                <% end %>
+                <div style="<%= this_day_task.status == true ? "text-decoration: line-through" : "" %>"><span style="margin-right: 10px" class="dot<%= bg_color %>"></span><%= this_day_task.name %></div>
               <% end %>
-            </ul>
           </div>
           <% if date == @project.deadline %>
-            <div class="deadline" style="color: red">Дедлайн!</div>
+            <div class="deadline" style="color: red; background-color: yellow">Дедлайн!</div>
           <% end %>
         <% end %>
       <% end %>
