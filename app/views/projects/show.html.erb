@@ -102,11 +102,11 @@
               <% @project.tasks.where(status: false).order(deadline: :asc).each_with_index do |task, num| %>
                 <% case task.priority %>
                   <% when 1 %>
-                    <% bg_color = '-grey' %>
+                    <% bg_color = '-red' %>
                   <% when 2 %>
                     <% bg_color = '-orange' %>
                   <% when 3 %>
-                    <% bg_color = '-red' %>
+                    <% bg_color = '-grey' %>
                   <% else %>
                     <% bg_color = '-black' %>
                 <% end %>
@@ -126,11 +126,11 @@
               <% @project.tasks.where(status: true).order(deadline: :asc).each_with_index do |task, num| %>
                 <% case task.priority %>
                   <% when 1 %>
-                    <% bg_color = '-grey' %>
+                    <% bg_color = '-red' %>
                   <% when 2 %>
                     <% bg_color = '-orange' %>
                   <% when 3 %>
-                    <% bg_color = '-red' %>
+                    <% bg_color = '-grey' %>
                   <% else %>
                     <% bg_color = '-black' %>
                 <% end %>
