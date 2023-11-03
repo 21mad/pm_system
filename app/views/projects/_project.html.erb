@@ -7,7 +7,7 @@
   <p>
     <strong>Руководитель проекта:</strong>
     <%= User.where(id: project.user_id ).first.full_name %>
-  </p> 
+  </p>
   <p>
     <strong>Дедлайн:</strong>
     <%= l project.deadline, format: :long %>

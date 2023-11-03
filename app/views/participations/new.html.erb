@@ -1,0 +1,39 @@
+<%= render "remote_modal", title: "Участники" do %>
+  <%= turbo_frame_tag 'members' do %>
+    <% members_array = [] %>
+    <h5>Руководитель проекта: <%= User.where(id: @project.user_id ).first.full_name %></h5>
+    <h5>Текущие участники: </h5>
+    <div class="container">
+      <% @participations.each_with_index do |p, idx| %>
+        <% members_array.append(p.user_id) %>
+        <div class="row" style="padding: 8px 0px 8px 0px;">
+            <div class="col"><%= idx + 1 %></div>
+            <div class="col"><%= User.find(p.user_id).full_name %></div>
+            <% if current_user.id == @project.user_id %>
+              <div class="col"><%= button_to 'Удалить', participation_path(p.id), method: :delete, class: "btn btn-outline-dark", style: "line-width: 15px; line-height: 15px" %></div>
+            <% end %>
+        </div>
+      <% end %>
+    </div>
+    <% if current_user.id == @project.user_id %>
+      <h5>Добавить участников:</h5>
+      <div class="container" >
+        <% User.all.each_with_index do |u, idx| %>
+          <% if !members_array.include?(u.id) && u.id != @project.user_id %>
+            <div class="row" style="padding: 8px 0px 8px 0px">
+              <div class="col"><%= idx %></div>
+              <div class="col"><%= u.full_name %></div>
+              <div class="col">
+                <%= form_with model: @participation do |f| %>
+                  <%= f.hidden_field :project_id, value: @project.id %>
+                  <%= f.hidden_field :user_id, value: u.id %>
+                  <%= f.submit 'Добавить', class: "btn btn-outline-dark", style: "line-width: 15px; line-height: 15px" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

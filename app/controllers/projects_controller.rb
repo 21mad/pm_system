@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     @projects = Project.where(active: false)
   end
 
-  # GET /projects/finished
+  # GET /projects/analytics
   def analytics
     @projects = Project.all
   end
@@ -21,6 +21,7 @@ class ProjectsController < ApplicationController
   def show
     @task = Task.new
     @projects = Project.all
+    # @participation = Participation.new
   end
 
   # GET /projects/new
@@ -34,7 +35,9 @@ class ProjectsController < ApplicationController
 
   # POST /projects or /projects.json
   def create
-    @project = Project.new(project_params)
+    processed_params = project_params
+    processed_params.merge!(user_id: current_user.id)
+    @project = Project.new(processed_params)
 
     respond_to do |format|
       if @project.save
@@ -75,7 +78,7 @@ class ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    # Use callbacks to share common setup or constraints between actions.)
     def set_project
       @project = Project.find(params[:id])
     end

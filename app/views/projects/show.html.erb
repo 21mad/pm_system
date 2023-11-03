@@ -75,8 +75,13 @@
   <div class="container" style="padding-top: 40px">
     <p style="color: green"><%= notice %></p>
     <%= render @project %>
+    <% if current_user.id == @project.user_id %>
+      <div>
+        <%= link_to "Редактировать проект", edit_project_path(@project), data: { turbo_frame: "remote_modal" } %>
+      </div>
+    <% end %>
     <div>
-      <%= link_to "Редактировать проект", edit_project_path(@project), data: { turbo_frame: "remote_modal" } %>
+      <%= link_to "Посмотреть участников", new_project_participation_path(@project), data: { turbo_frame: "remote_modal" } %>
     </div>
 
     <div>

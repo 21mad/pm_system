@@ -76,16 +76,5 @@
     <h1>Добро пожаловать в Project Minder!</h1>
     <p>Для начала работы, создайте новый проект или выберите существующий.</p>
     <p style="color: green"><%= notice %></p>
-    <h1>Проекты</h1>
-    <div id="projects">
-      <% @projects.each do |project| %>
-        <%= render project %>
-        <p>
-          <%= link_to "Показать проект", project %>
-        </p>
-      <% end %>
-    </div>
-    <%= link_to "Новый проект", new_project_path %>
-  </div>
 </main>
 <!--Main layout-->
