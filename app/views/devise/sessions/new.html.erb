@@ -1,28 +1,29 @@
 <div class="text-center" style="height: 100vh; display: flex; flex-align: center" >
-  <div class="form" style="border: 1px solid; width: 300px; margin: auto; border-radius: 10px;">
+  <div class="form" style="border: 0px solid; width: 300px; margin: auto; border-radius: 10px;">
     <%= image_tag 'logos/PM-logo.png', style: 'height: 100px; padding-top: 20px'%>
     <h2>Вход в систему</h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="field form-outline mb-4">
+        <%= f.label :email, class: "form-label" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
       </div>
 
-      <div class="field">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "current-password" %>
+      <div class="field form-outline mb-4">
+        <%= f.label :password, class: "form-label"%><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
       </div>
 
       <% if devise_mapping.rememberable? %>
-        <div class="field">
+        <div class="field form-outline mb-4">
           <%= f.check_box :remember_me %>
           <%= f.label :remember_me %>
         </div>
       <% end %>
 
       <div class="actions">
-        <%= f.submit "Войти" %>
+        <%= f.submit "Войти", class: "form-control" %>
+        <br/>
       </div>
     <% end %>
 

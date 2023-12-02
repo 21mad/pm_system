@@ -1,51 +1,51 @@
-<div class="text-center" style="margin-top: 180px">
-  <div class="form" style="border: 1px solid; width: 500px; margin: auto; border-radius: 10px;">
-    <h2>Изменить настройки аккаунта</h2>
+<div style="margin-top: 20px">
+  <div class="form" style="border: 0px solid; width: 500px; margin: auto; border-radius: 10px;">
+    <h2>Настройки аккаунта</h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="field form-outline mb-4">
+        <%= f.label :email, class: "form-label" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
       </div>
 
-      <div class="field">
-        <%= f.label :full_name,'Имя Фамилия' %><br />
-        <%= f.text_field :full_name, autofocus: true, autocomplete: "Имя Фамилия" %>
+      <div class="field form-outline mb-4">
+        <%= f.label :full_name,'Имя Фамилия', class: "form-label" %><br />
+        <%= f.text_field :full_name, autofocus: true, autocomplete: "Имя Фамилия", class: "form-control" %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
-      <div class="field">
-        <%= f.label :password %> <i>(оставьте пустым, если не хотите изменять его)</i><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
+      <div class="field form-outline mb-4">
+        <%= f.label :password, class: "form-label" %> <i>(оставьте пустым, если не хотите изменять его)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
         <% if @minimum_password_length %>
           <br />
           <em><%= @minimum_password_length %> символов минимум</em>
         <% end %>
       </div>
 
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <div class="field form-outline mb-4">
+        <%= f.label :password_confirmation, class: "form-label" %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
       </div>
 
-      <div class="field">
-        <%= f.label :current_password %> <i>(текущий пароль для подтверждения изменений)</i><br />
-        <%= f.password_field :current_password, autocomplete: "current-password" %>
+      <div class="field form-outline mb-4">
+        <%= f.label :current_password, class: "form-label" %> <i>(текущий пароль для подтверждения изменений)</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Обновить" %>
+        <%= f.submit "Обновить", class: "form-control" %>
       </div>
     <% end %>
 
     <h3>Удалить аккаунт</h3>
 
-    <div><%= button_to "Удалить аккаунт?", registration_path(resource_name), data: { confirm: "Вы уверены?", turbo_confirm: "Вы уверены?" }, method: :delete %></div>
+    <div><%= button_to "Удалить аккаунт?", registration_path(resource_name), data: { confirm: "Вы уверены?", turbo_confirm: "Вы уверены?" }, method: :delete, class: "form-control" %></div>
 
     <%= link_to "Назад", :back %>
   </div>
